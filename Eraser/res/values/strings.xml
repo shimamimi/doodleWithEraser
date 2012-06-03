@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, DrawItActivity!</string>
-    <string name="app_name">Draw it!</string>
-    <string name="pencil">Pencil</string>
-    <string name="eraser">Eraser</string>
-    <string name="stroke">Stroke size</string>
-    <string name="colour">Color</string>
-    <string name="clear">Clear</string>
+    <string name="app_name">Doodle with Eraser</string>
     
     <item type="id" name="penOrEraser"></item>
     <item type="id" name="penColors"></item>

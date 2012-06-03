@@ -19,7 +19,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 public class DoodleWithEraserActivity extends Activity {
-
 	public PaintView paintView;
 
 	@Override public void onCreate(Bundle savedInstanceState) {
@@ -37,14 +36,13 @@ public class DoodleWithEraserActivity extends Activity {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				TypedArray tArray = getResources().obtainTypedArray(options[i]);
 				for (int j=0; j<tArray.length(); j++) {
-					int id = tArray.getResourceId(j, 0);
 					map = new HashMap<String, Object>();
-					map.put("Image", id);
+					map.put("Image", tArray.getResourceId(j, 0));
 					map.put("Spinner", spinners[i]);
 					list.add(map);
 				}
 				Spinner spinner = (Spinner)findViewById(spinners[i]);
-				myAdapter adapter = new myAdapter(getApplicationContext(), list, R.layout.spinner,
+				SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), list, R.layout.spinner,
 						new String[] { "Image" }, new int[] { R.id.imageView });
 				spinner.setAdapter(adapter);
 				spinner.setOnItemSelectedListener(this);
@@ -85,9 +83,9 @@ public class DoodleWithEraserActivity extends Activity {
 		}
 		public void onNothingSelected(AdapterView<?> parent) {}
 	}
-	private class myAdapter extends SimpleAdapter {
+	private class SpinnerAdapter extends SimpleAdapter {
 		int resourceId;
-		public myAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
+		public SpinnerAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
 			super(context, data, resource, from, to);
 			resourceId = resource;
 		}

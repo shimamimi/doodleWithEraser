@@ -1,5 +1,6 @@
 package shima.android;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 
 public class PaintView extends View {
 	private static final float TOLERANCE = 6;
-	
 	private Bitmap offScreenBitmap;
 	private Canvas offScreenCanvas;
 	private ImageView backgroundView;
@@ -40,12 +40,12 @@ public class PaintView extends View {
 		paint.setStrokeWidth(20);
 		paint.setColor(Color.RED);
 		path = new Path();
-		backgroundView = (ImageView)findViewById(R.id.backgroundView);
 	}
 	@Override protected void onSizeChanged(int w, int h, int pw, int ph) {
 		super.onSizeChanged(w, h, pw, ph);
 		offScreenBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 		offScreenCanvas = new Canvas(offScreenBitmap);
+		backgroundView = (ImageView)((Activity)getContext()).findViewById(R.id.backgroundView);
 	}
 	@Override protected void onDraw(Canvas canvas) {
 		offScreenCanvas.drawPath(path, paint);
