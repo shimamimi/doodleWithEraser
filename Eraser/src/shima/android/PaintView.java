@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,29 +16,36 @@ import android.view.View;
 public class PaintView extends View {
 	private static final float TOLERANCE = 6;
 	
-	Xfermodes xfermodes;
-	private Bitmap bmp;
-	Canvas pcanvas;
-	Path path;
-	private Paint bmpPaint;
+	private Bitmap offScreenBitmap;
+	private Canvas offScreenCanvas;
+	private Paint paint;
+	private Path path;
 	private PointF prev = new PointF();
+	public enum PenType { PEN, ERASER } PenType penType = PenType.PEN;
+	private PorterDuffXfermode eraserMode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 
 	public PaintView(Context context) { this(context, null); }
 	public PaintView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setBackgroundColor(Color.alpha(0));
+		paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setDither(true);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeJoin(Paint.Join.ROUND);
+		paint.setStrokeCap(Paint.Cap.ROUND);
+		paint.setStrokeWidth(20);
+		paint.setColor(Color.RED);
 		path = new Path();
-		bmpPaint = new Paint();
 	}
-	@Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
-		bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-		pcanvas = new Canvas(bmp);
+	@Override protected void onSizeChanged(int w, int h, int pw, int ph) {
+		super.onSizeChanged(w, h, pw, ph);
+		offScreenBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+		offScreenCanvas = new Canvas(offScreenBitmap);
 	}
 	@Override protected void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.alpha(0));
-		canvas.drawBitmap(bmp, 0, 0, bmpPaint);
-		pcanvas.drawPath(path, xfermodes.paint);
+		offScreenCanvas.drawPath(path, paint);
+		canvas.drawBitmap(offScreenBitmap, 0, 0, null);
 	}
 	@Override public boolean onTouchEvent(MotionEvent e) {
 		float x = e.getX(); float y = e.getY();
@@ -52,11 +61,26 @@ public class PaintView extends View {
 			break;
 		case MotionEvent.ACTION_UP:
 			path.lineTo(x, y);
-			pcanvas.drawPath(path, xfermodes.paint);
+			offScreenCanvas.drawPath(path, paint);
 			break;
 		}
 		prev.x = x; prev.y = y;
 		invalidate();
+		return true;
+	}
+	boolean setPenType(PenType type) {
+		if (type == penType) return false;
+		penType = type;
+		switch (penType) {
+		case PEN:
+			paint.setXfermode(null);
+			paint.setAlpha(255);
+			break;
+		case ERASER:
+			paint.setXfermode(eraserMode);
+			paint.setAlpha(0);
+			break;
+		}
 		return true;
 	}
 }

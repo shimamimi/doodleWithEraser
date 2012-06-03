@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 public class Xfermodes extends Activity {
 
-	public Paint paint;
 	public PaintView paintView;
 
 	@Override
@@ -25,16 +24,6 @@ public class Xfermodes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		paintView = (PaintView)findViewById(R.id.paintView);
-		paintView.xfermodes = this;
-
-		paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setDither(true);
-		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeJoin(Paint.Join.ROUND);
-		paint.setStrokeCap(Paint.Cap.ROUND);
-		paint.setStrokeWidth(20);
-		paint.setColor(Color.RED);
 	}
 
 	@Override
@@ -46,17 +35,11 @@ public class Xfermodes extends Activity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.pencil:
-			paint.setXfermode(null);
-			paint.setAlpha(255);
-			break;
-		case R.id.eraser:
-			paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-			paint.setAlpha(0);
-			break;
+		case R.id.pen:		paintView.setPenType(PaintView.PenType.PEN);	break;
+		case R.id.eraser:	paintView.setPenType(PaintView.PenType.ERASER);	break;
 		case R.id.clear:
-			paintView.path = new Path(); //empty path
-			paintView.pcanvas.drawColor(Color.WHITE);
+//			paintView.path = new Path(); //empty path
+//			paintView.offScreenCanvas.drawColor(Color.WHITE);
 			paintView.invalidate();
 			break;
 		}
