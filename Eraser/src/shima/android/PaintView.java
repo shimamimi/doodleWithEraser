@@ -74,8 +74,7 @@ public class PaintView extends View {
 	}
 	boolean setPenType(PenType type) {
 		if (type == penType) return false;
-		penType = type;
-		switch (penType) {
+		switch (penType = type) {
 		case PEN:
 			paint.setXfermode(null);
 			paint.setAlpha(255);
