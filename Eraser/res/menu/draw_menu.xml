@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/pencil" android:title="@string/pencil" />
+    <item android:id="@+id/eraser" android:title="@string/eraser" />
+    <item android:id="@+id/stroke" android:title="@string/stroke" />
+    <item android:id="@+id/colour" android:title="@string/colour" />
+    <item android:id="@+id/clear" android:title="@string/clear" />
+</menu>

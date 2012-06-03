@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, DrawItActivity!</string>
+    <string name="app_name">Draw it!</string>
+    <string name="pencil">Pencil</string>
+    <string name="eraser">Eraser</string>
+    <string name="stroke">Stroke size</string>
+    <string name="colour">Color</string>
+    <string name="clear">Clear</string>
+
+</resources>
