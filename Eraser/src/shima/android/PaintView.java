@@ -9,15 +9,18 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 public class PaintView extends View {
 	private static final float TOLERANCE = 6;
 	
 	private Bitmap offScreenBitmap;
 	private Canvas offScreenCanvas;
+	private ImageView backgroundView;
 	private Paint paint;
 	private Path path;
 	private PointF prev = new PointF();
@@ -37,6 +40,7 @@ public class PaintView extends View {
 		paint.setStrokeWidth(20);
 		paint.setColor(Color.RED);
 		path = new Path();
+		backgroundView = (ImageView)findViewById(R.id.backgroundView);
 	}
 	@Override protected void onSizeChanged(int w, int h, int pw, int ph) {
 		super.onSizeChanged(w, h, pw, ph);
@@ -82,5 +86,27 @@ public class PaintView extends View {
 			break;
 		}
 		return true;
+	}
+	boolean setPenColor(int color) {
+		if (penType == PenType.PEN) {
+			paint.setColor(color);
+			return true;
+		}
+		return false;
+	}
+	void setBgColor(int color) {
+		if (backgroundView != null) {
+			backgroundView.setImageDrawable(null);
+			backgroundView.setBackgroundColor(color);
+			backgroundView.invalidate();
+			invalidate();
+		}
+	}
+	void setBgImage(Drawable drawable) {
+		if (backgroundView != null) {
+			backgroundView.setImageDrawable(drawable);
+			backgroundView.invalidate();
+			invalidate();
+		}
 	}
 }

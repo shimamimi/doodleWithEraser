@@ -8,11 +8,12 @@
         android:id="@+id/frame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="9"
         android:background="#ff00ffff"
         >
         
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/backgroundView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
 		    android:src="@drawable/ic_launcher"
@@ -25,5 +26,31 @@
             android:layout_height="fill_parent"
             />
     </FrameLayout>
-
+    
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+        <Spinner
+            android:id="@id/penOrEraser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            />
+        <Spinner
+            android:id="@id/penColors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            />
+        <Spinner
+            android:id="@id/bgColors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            />
+    </LinearLayout>
 </LinearLayout>
