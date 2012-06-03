@@ -86,6 +86,7 @@ public class DoodleWithEraserActivity extends Activity {
 				case R.drawable.black:	paintView.setBgColor(Color.BLACK); break;
 				case R.drawable.bg1:	paintView.setBgImage(getResources().getDrawable(R.drawable.bg1)); break;
 				case R.drawable.bg2:	paintView.setBgImage(getResources().getDrawable(R.drawable.bg2)); break;
+				case R.drawable.bg3:	paintView.setBgImage(getResources().getDrawable(R.drawable.bg3)); break;
 				}
 				break;
 			}

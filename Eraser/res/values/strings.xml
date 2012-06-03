@@ -22,5 +22,6 @@
         <item>@drawable/blue</item>
         <item>@drawable/bg1</item>
         <item>@drawable/bg2</item>
+        <item>@drawable/bg3</item>
     </integer-array>
 </resources>
