@@ -29,7 +29,6 @@ public class DoodleWithEraserActivity extends Activity {
 		new SpinnerListener();
 	}
 	private class SpinnerListener implements AdapterView.OnItemSelectedListener {
-		int prevColorPosition = 0;
 		SpinnerListener() {
 			int[] spinners = {    R.id.penOrEraser,    R.id.penColors,    R.id.bgColors };
 			int[] options =  { R.array.penOrEraser, R.array.penColors, R.array.bgColors };
@@ -58,24 +57,24 @@ public class DoodleWithEraserActivity extends Activity {
 			Log.d("TAG", "spinnerId=" + spinnerId + ", optionID=" + optionId);
 			switch (spinnerId) {
 			case R.id.penOrEraser:
+				Spinner penColorsSpinner = (Spinner)findViewById(R.id.penColors);
 				switch (optionId) {
-				case R.drawable.pen:	paintView.setPenType(PaintView.PenType.PEN); break;
-				case R.drawable.eraser: paintView.setPenType(PaintView.PenType.ERASER); break;
+				case R.drawable.pen:
+					paintView.setPenType(PaintView.PenType.PEN);
+					penColorsSpinner.setEnabled(true);
+					break;
+				case R.drawable.eraser:
+					paintView.setPenType(PaintView.PenType.ERASER);
+					penColorsSpinner.setEnabled(false);
+					break;
 				}
 				break;
 			case R.id.penColors:
-				boolean success = false;
 				switch (optionId) {
-				case R.drawable.red:	success = paintView.setPenColor(Color.RED); break;
-				case R.drawable.green:	success = paintView.setPenColor(Color.GREEN); break;
-				case R.drawable.blue:	success = paintView.setPenColor(Color.BLUE); break;
-				case R.drawable.black:	success = paintView.setPenColor(Color.BLACK); break;
-				}
-				if (success) {
-					prevColorPosition = position;
-				} else {
-					spinner.setSelection(prevColorPosition);
-					Toast.makeText(DoodleWithEraserActivity.this, "è¡ÇµÉSÉÄÇæÇ¡Ç¬Å[ÇÃÅI", Toast.LENGTH_SHORT).show();
+				case R.drawable.red:	paintView.setPenColor(Color.RED); break;
+				case R.drawable.green:	paintView.setPenColor(Color.GREEN); break;
+				case R.drawable.blue:	paintView.setPenColor(Color.BLUE); break;
+				case R.drawable.black:	paintView.setPenColor(Color.BLACK); break;
 				}
 				break;
 			case R.id.bgColors:
@@ -88,6 +87,7 @@ public class DoodleWithEraserActivity extends Activity {
 				case R.drawable.bg2:	paintView.setBgImage(getResources().getDrawable(R.drawable.bg2)); break;
 				case R.drawable.bg3:	paintView.setBgImage(getResources().getDrawable(R.drawable.bg3)); break;
 				}
+				//Toast.makeText(DoodleWithEraserActivity.this, "ÇÕÇ©Çπ", Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}

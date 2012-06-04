@@ -97,15 +97,11 @@ public class PaintView extends View {
 		if (backgroundView != null) {
 			backgroundView.setImageDrawable(null);
 			backgroundView.setBackgroundColor(color);
-			backgroundView.invalidate();
-			invalidate();
 		}
 	}
 	void setBgImage(Drawable drawable) {
 		if (backgroundView != null) {
 			backgroundView.setImageDrawable(drawable);
-			backgroundView.invalidate();
-			invalidate();
 		}
 	}
 }
